@@ -1,1 +1,1 @@
-# training-tensorflow
+Tensorflow IRIS classification
