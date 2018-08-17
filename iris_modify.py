@@ -4,7 +4,8 @@ import tensorflow as tf
 import tensorflow.contrib.keras.api.keras as keras
 from tensorflow.contrib.keras.api.keras.models import Sequential
 from tensorflow.contrib.keras.api.keras.layers import Dense
-from tensorflow.contrib.keras.api.keras import backend
+from tensorflow.contrib.keras.api.keras import backend, callbacks
+
 
 import urllib.request
 import sys
@@ -66,13 +67,18 @@ def main():
 
     model.compile(loss='categorical_crossentropy',optimizer='Adam',metrics=['accuracy'])
 
+    # Callbacks definition
+    tensorboard = callbacks.TensorBoard(log_dir='./logs/', histogram_freq=1)
+    callback_list = [tensorboard]
+
     # verbose: display mode: 0:no display, 1: progress bar
-    history = model.fit(train_X,train_y,batch_size=20,epochs=2000,verbose=0,validation_data = (valid_X, valid_y))
+    history = model.fit(train_X,train_y,batch_size=20,epochs=2000,verbose=0,validation_data = (valid_X, valid_y),callbacks=callback_list)
 
     score = model.evaluate(test_X,test_y,verbose=0)
 
     # score[0]: loss, score[1]: accuracy
-    print(score)
+    print('Loss:', score[0])
+    print('Accuracy:', score[1])
 
     backend.clear_session()
 
