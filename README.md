@@ -1,1 +1,1 @@
-Tensorflow IRIS classification
+Tensorflow IRIS classification, Japanese katakana classification
